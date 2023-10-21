@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>文件列表</title>
+  <style>
+    /* 这里可以添加一些CSS样式来优化UI */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      margin: 10px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      padding: 10px;
+    }
+    li a {
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>文件列表</h1>
+  <ul id="file-list">
+    <!-- 这里将显示./File/下的所有文件 -->
+  </ul>
+  <script>
+    // 这里可以添加一些JavaScript代码来读取./File/下的所有文件
+    // 首先，获取<input type="file">元素，它允许用户选择一个或多个文件
+    var input = document.getElementById("file");
+    // 然后，获取<ul>元素，它用来显示文件列表
+    var list = document.getElementById("file-list");
+    // 接着，为<input>元素添加一个change事件监听器，当用户选择文件时触发
+    input.addEventListener("change", function() {
+      // 清空<ul>元素的内容
+      list.innerHTML = "";
+      // 获取用户选择的文件列表，它是一个FileList对象
+      var files = input.files;
+      // 遍历每个文件
+      for (var i = 0; i < files.length; i++) {
+        // 获取当前文件，它是一个File对象
+        var file = files[i];
+        // 创建一个<li>元素，用来显示文件的信息
+        var li = document.createElement("li");
+        // 创建一个<a>元素，用来链接到文件的URL
+        var a = document.createElement("a");
+        // 设置<a>元素的文本内容为文件的名称
+        a.textContent = file.name;
+        // 使用URL.createObjectURL()方法创建一个临时的URL，指向该文件
+        a.href = URL.createObjectURL(file);
+        // 设置<a>元素的target属性为_blank，表示在新窗口中打开链接
+        a.target = "_blank";
+        // 将<a>元素添加到<li>元素中
+        li.appendChild(a);
+        // 将<li>元素添加到<ul>元素中
+        list.appendChild(li);
+      }
+    });
+  </script>
+</body>
+</html>
